@@ -24,7 +24,7 @@ pipeline{
 			}
 		}
 		stage ('Paso a pro'){
-			stepts{
+			steps{
 				// Si transcurridos cinco días desde que se generó el war no pasa a producción,
 				// falla el proceso.
 				// Primero pregunta ¿Aprobar el paso a producción? Si dice que Aceptar, hace el
