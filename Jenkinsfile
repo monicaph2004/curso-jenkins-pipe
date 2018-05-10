@@ -16,9 +16,10 @@ pipeline{
 			}
 
 		}
-		stage ('Etapa 2'){
+		stage ('Paso a pre'){
 			steps{
-				echo 'Hola mundo'
+				echo 'Se hace el despliegue a pre'
+				build job: 'curso-jenkins-realizar-deploy-pre'
 			}
 		}
 	}
