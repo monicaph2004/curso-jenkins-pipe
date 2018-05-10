@@ -25,11 +25,14 @@ pipeline{
 		}
 		stage ('Paso a pro'){
 			steps{
-				// Si transcurridos cinco días desde que se generó el war no pasa a producción,
-				// falla el proceso.
-				// Primero pregunta ¿Aprobar el paso a producción? Si dice que Aceptar, hace el
-				// build job, si no, aborta el proceso
-			    timeout(time:5, unit:'DAYS'){
+				/* Si transcurridos cinco días desde que se generó el war no pasa a producción,
+				 * falla el proceso. Y no pregunta si quieres realizar el paso a producción, simplemente
+				 * da error.
+				 *
+				 * Al realizar la pregunta ¿Aprobar el paso a producción? Si dice que Aceptar,
+				 * hace el build job, si no, aborta el proceso
+				*/
+				timeout(time:5, unit:'DAYS'){
 			        input message: '¿Aprobar el paso a producción?'
 			    }
 			    
@@ -38,9 +41,11 @@ pipeline{
 			}
 			
 			post{
+				// Se llega a aquí, si se aprueba el paso a producción con la pregunta "¿Aprobar el paso a producción?"
 			    success{
 			        echo 'Realizado el paso a producción.'
 			    }
+			    // Se lleva a aquí, cuando se aborta el paso a producción con la pregunta "¿Aprobar el paso a producción?"
 			    failure{
 			        echo 'Ha fallado el paso a producción.'
 			    }
