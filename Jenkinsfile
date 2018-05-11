@@ -20,7 +20,9 @@ pipeline{
 		stage ('Validación y paso a pre'){
 		    parallel{
 		    	stage ('Validación checkstyle') {
-					// Se va a hacer el checkstyle
+					// Se va a hacer el checkstyle. Falta que luego se vean los resultados.
+					// Se podría hacer por aquí, pero eso no lo damos en el curso.
+					// En el curso nos han dicho que hagamos una tarea checkstyle y hagamos build job
 					steps{
 					    echo 'Hacer el checkstyle'
 					    bat 'mvn checkstyle:checkstyle' 
