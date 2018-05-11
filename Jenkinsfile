@@ -16,21 +16,26 @@ pipeline{
 			}
 
 		}
-		stage ('Paso a pre'){
+		
+		stage ('Validación y paso a pre'){
 		    parallel{
-				// Se va a hacer el checkstyle
-				steps{
-				    echo 'Hacer el checkstyle'
-				    bat 'mvn checkstyle:checkstyle' 
-				}
-
-				// Con este paso, se ejecuta una tarea jenkins llamada 'curso-jenkins-realizar-deploy-pre' 
-				steps{
-					echo 'Se hace el despliegue a pre'
-					build job: 'curso-jenkins-realizar-deploy-pre'
+		    	stage ('Validación checkstyle') {
+					// Se va a hacer el checkstyle
+					steps{
+					    echo 'Hacer el checkstyle'
+					    bat 'mvn checkstyle:checkstyle' 
+					}
+		    	}
+				stage ('Paso a pre'){
+					// Con este paso, se ejecuta una tarea jenkins llamada 'curso-jenkins-realizar-deploy-pre' 
+					steps{
+						echo 'Se hace el despliegue a pre'
+						build job: 'curso-jenkins-realizar-deploy-pre'
+					}
 				}
 			}
 		}
+		
 		stage ('Paso a pro'){
 			steps{
 				/* Si transcurridos cinco días desde que se generó el war no pasa a producción,
